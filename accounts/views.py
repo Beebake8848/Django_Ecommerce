@@ -26,7 +26,7 @@ def login_page(request):
             login(request , user_obj)
             return redirect('/')
         
-        messages.success(request, 'An email has been sent on your mail.')
+        messages.success(request, 'Invalid credentials')
         return HttpResponseRedirect(request.path_info)
 
 
@@ -46,6 +46,7 @@ def register_page(request):
         if user_obj.exists():
             messages.warning(request, 'Email is already taken.')
             return HttpResponseRedirect(request.path_info)
+        print(email)
         
         user_obj = User.objects.create(first_name = first_name , last_name = last_name , email = email , username = email)
         user_obj.set_password(password)
